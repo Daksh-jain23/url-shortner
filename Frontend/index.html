@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>URL Shortener</h1>
+    <form id="urlForm">
+        <input type="url" name="url" id="inputField" placeholder="www.example.com" required>
+        <button id="shortenButton" type = "submit">Send</button>
+    </form>
+    <a id="result" href=""></p>
+
+    <script>
+    const form = document.getElementById("urlForm");
+    const result = document.getElementById("result");
+
+    form.addEventListener("submit", async (event) => {
+        event.preventDefault();
+
+        const formData = new FormData(form);
+
+        const response = await fetch("/shorten", {
+            method: "POST",
+            body: formData
+        });
+
+        const data = await response.json();
+        result.href = data.short_url;
+        result.textContent = data.short_url;
+    });
+</script>
+</body>
+</html>
