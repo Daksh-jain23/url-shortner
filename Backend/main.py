@@ -14,10 +14,10 @@ def home():
 @app.post("/shorten")
 def shorten(url: str = Form(...)):
     code = shorten_url(url)
-    
     print(f"Shortened url - http://127.0.0.1:8000/{code}")
-
+    
     return {"short_url": f"http://127.0.0.1:8000/{code}"}
+
 
 @app.get("/{short_code}")
 def original_url(short_code):
@@ -28,7 +28,6 @@ def original_url(short_code):
         }
 
     print(f"Opened URL - {original_url}")
-
     return RedirectResponse(
         url=original_url,
         status_code=302
